@@ -1,3 +1,5 @@
+# Función auxiliar que cuenta el número de ataques dado un tablero
+# (o solución)
 def countAttacks(board):
     attacks = 0
     value = 0
