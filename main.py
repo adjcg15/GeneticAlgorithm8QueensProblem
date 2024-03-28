@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import random
 import heapq
 import evolution
@@ -10,6 +11,9 @@ population = evolution.generateInitialPopulation()
 solution = []
 solutionFound = False
 currentEvaluations = 0
+
+plt.figure()
+
 while(not solutionFound and currentEvaluations < MAXIMUM_ALLOWED_EVALUATIONS):
     DECENDENTS_PER_GENERATION = 10
     
@@ -33,6 +37,9 @@ while(not solutionFound and currentEvaluations < MAXIMUM_ALLOWED_EVALUATIONS):
     bestSolutionMapping = heapq.nlargest(1, qualitiesMapping)[0]
     bestSolutionAttacksCounter = abs(bestSolutionMapping[0])
     bestSolutionIndex = bestSolutionMapping[1]
+
+    plt.scatter(currentEvaluations + 1, bestSolutionAttacksCounter, s=10, color="blue", linewidths=0)
+    
     if(bestSolutionAttacksCounter == 0):
         solutionFound = True
         solution = population[bestSolutionIndex]
@@ -44,3 +51,8 @@ if(solutionFound):
     print("Total de evaluaciones: ", currentEvaluations)
     print("Solución: ")
     helpers.printBoard(solution)
+
+plt.xlabel("Generación")
+plt.ylabel("Ataques en la mejor solución")
+plt.title("Gráfica de convergencia")
+plt.show()
